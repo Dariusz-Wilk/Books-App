@@ -9,6 +9,8 @@ const templates = {
 	),
 };
 
+const favoriteBooks = [];
+
 const renderBooks = function (booksData) {
 	booksData.forEach(book => {
 		console.log(book);
@@ -20,3 +22,17 @@ const renderBooks = function (booksData) {
 };
 
 renderBooks(dataSource.books);
+
+const initActions = function () {
+	const allBooks = document.querySelectorAll('.book__image');
+	console.log(allBooks);
+	for (let book of allBooks) {
+		book.addEventListener('dblclick', () => {
+			favoriteBooks.push(book.getAttribute(`data-id`));
+			book.classList.add('favorite');
+			console.log(favoriteBooks);
+		});
+	}
+};
+
+initActions();
