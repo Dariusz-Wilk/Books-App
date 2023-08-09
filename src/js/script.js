@@ -13,7 +13,6 @@ const favoriteBooks = [];
 
 const renderBooks = function (booksData) {
 	booksData.forEach(book => {
-		console.log(book);
 		const generatedHTML = templates.bookTemplate(book);
 		const generatedDOM = utils.createDOMFromHTML(generatedHTML);
 		const booksMenu = document.querySelector(select.listOfBooks);
@@ -24,21 +23,18 @@ const renderBooks = function (booksData) {
 renderBooks(dataSource.books);
 
 const initActions = function () {
-	const allBooks = document.querySelectorAll('.book__image');
-	console.log(allBooks);
-	for (let book of allBooks) {
-		book.addEventListener('dblclick', () => {
-			book.classList.toggle('favorite');
-			const bookID = book.getAttribute(`data-id`);
-			if (favoriteBooks.includes(bookID)) {
-				const indexBookID = favoriteBooks.indexOf(bookID);
-				favoriteBooks.splice(indexBookID, 1);
-			} else {
-				favoriteBooks.push(bookID);
-			}
-			console.log(favoriteBooks);
-		});
-	}
+	const booksWrapper = document.querySelector(select.listOfBooks);
+	booksWrapper.addEventListener('dblclick', e => {
+		const clickedBookRef = e.target.closest('.book__image');
+		clickedBookRef.classList.toggle('favorite');
+		const bookID = clickedBookRef.getAttribute(`data-id`);
+		if (favoriteBooks.includes(bookID)) {
+			const indexBookID = favoriteBooks.indexOf(bookID);
+			favoriteBooks.splice(indexBookID, 1);
+		} else {
+			favoriteBooks.push(bookID);
+		}
+	});
 };
 
 initActions();
