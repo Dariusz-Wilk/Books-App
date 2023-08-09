@@ -28,8 +28,14 @@ const initActions = function () {
 	console.log(allBooks);
 	for (let book of allBooks) {
 		book.addEventListener('dblclick', () => {
-			favoriteBooks.push(book.getAttribute(`data-id`));
-			book.classList.add('favorite');
+			book.classList.toggle('favorite');
+			const bookID = book.getAttribute(`data-id`);
+			if (favoriteBooks.includes(bookID)) {
+				const indexBookID = favoriteBooks.indexOf(bookID);
+				favoriteBooks.splice(indexBookID, 1);
+			} else {
+				favoriteBooks.push(bookID);
+			}
 			console.log(favoriteBooks);
 		});
 	}
