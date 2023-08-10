@@ -9,10 +9,33 @@ const templates = {
 	),
 };
 
+const setRatingStyle = function (booksData) {
+	booksData.forEach(book => {
+		book.width = 'width: ' + book.rating * 10 + '%';
+
+		if (book.rating < 6) {
+			book.color =
+				'background: linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%);';
+		} else if (book.rating > 6 && book.rating <= 8) {
+			book.color =
+				'background: linear-gradient(to bottom, #b4df5b 0%,#b4df5b 100%)';
+		} else if (book.rating > 8 && book.rating <= 9) {
+			book.color =
+				'background: linear-gradient(to bottom, #299a0b 0%, #299a0b 100%)';
+		} else {
+			book.color =
+				'background: linear-gradient(to bottom, #ff0084 0%,#ff0084 100%)';
+		}
+	});
+};
+
+console.log(dataSource.books);
+
 const favoriteBooks = [];
 const filters = [];
 
 const renderBooks = function (booksData) {
+	setRatingStyle(booksData);
 	booksData.forEach(book => {
 		const generatedHTML = templates.bookTemplate(book);
 		const generatedDOM = utils.createDOMFromHTML(generatedHTML);
